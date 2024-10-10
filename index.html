@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Import Vega & Vega-Lite (does not have to be from CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.22.1"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.5.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.21.0"></script>
+  
+  <!-- CSS file -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+
+</head>
+<body>
+
+  <div class="content-wrapper">
+    <h1>How Physically Active is the Australian Population?</h1>
+    <p>Maintaining good health is essential to living a fulfilling life, and regular physical activity plays a key role in achieving that. 
+      Engaging in exercise not only strengthens the body but also enhances mental well-being, reduces the risk of chronic diseases, 
+      and improves overall quality of life. Which is why we will be exploring the physical activity levels across Australia, 
+      providing insights into how often people in different states and age groups engage in regular exercise. 
+      By understanding these trends, we can identify areas for improvement and encourage healthier lifestyles for all Australians.
+    </p>
+
+    <table border="0">
+      <tr>
+        <td>
+          <div id="choropleth_map"></div>
+        </td>
+        <td>
+          <p class="description">In this map, we take a look at the percentage of the population in each of Australia's states
+            who exercise more than 3 times a week. This is due to the fact that exercising 3 times a week is a
+            general consensus as to the recommended amount to exercise in a week. As we can see, Australian
+            Capital Territory (ACT) is the state with the highest participation rate out of the population with 
+            67.9%, while Northern Territory (NT) is the lowest with 51.2%. Let's break it down further and see the 
+            age groups of the population who actively exercise at least 3 times a week.
+          </p>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <div id ="stacked_bar_chart"></div>
+        </td>
+        <td>
+          <p class="description">
+            This graph illustrates the participation rates in physical activities across Australian states, broken down by age groups. 
+            Each bar represents a state, with different segments indicating the percentage of people in each age group who engage in physical activities. 
+            The shades of color correspond to specific age ranges, from 15-17 years old at the top (lightest) to 65+ years old at the bottom (darkest). 
+            Notably, states like the Northern Territory (NT) and South Australia (SA) have higher activity rates in younger populations, while other states 
+            like New South Wales (NSW) and Victoria (VIC) show a more balanced distribution of activity across age groups. This data provides insights into 
+            how physical activity varies both regionally and across different age demographics in Australia.
+          </p>
+        </td>
+      </tr>
+      
+      
+      
+    </table>
+
+  </div>
+  
+
+<script type="text/javascript">
+  var choropleth = "Australia_Activity_Level.vg.json";
+  vegaEmbed('#choropleth_map', choropleth).then(function(result) {
+  }).catch(console.error);
+</script>
+
+<script type="text/javascript">
+  var stacked_bar_chart = "Australia_Activity_Demographic.vg.json";
+  vegaEmbed('#stacked_bar_chart', stacked_bar_chart).then(function(result) {
+  }).catch(console.error);
+</script>
+</body>
+</html>

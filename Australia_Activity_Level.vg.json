@@ -1,0 +1,75 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 600,
+  "height": 600,
+  "title": {
+    "text": "Percentage of Australians who Exercise at least 3 times a week",
+    "fontSize": 24
+  },
+  "params": [
+    {
+      "name": "Year_selection",
+      "value": 2023,
+      "bind": {
+        "input": "range",
+        "min": 2018,
+        "max": 2023,
+        "step": 1,
+        "name": "Year: "
+      }
+    }
+  ],
+  "projection": {
+    "type": "mercator"
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/hmat0015/FIT3179_DataVis2/refs/heads/main/state_activity_participation_year.csv"
+      },
+      "transform": [
+        {
+          "lookup": "State",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/hmat0015/FIT3179_Homework_9/refs/heads/main/australia_states.json",
+              "format": {
+                "type": "topojson",
+                "feature": "georef-australia-state-millesime"
+              }
+            },
+            "key": "properties.ste_iso3166"
+          },
+          "as": "geo"
+        },
+        {"filter": "datum.Year == Year_selection"}
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "black",
+        "strokeWidth": 1
+      },
+      "encoding": {
+        "shape": {"field": "geo", "type": "geojson"},
+        "color": {
+          "field": "Participation rate",
+          "type": "quantitative",
+          "scale": {
+            "domain": [50, 70],
+            "scheme": "blues"
+          },
+          "legend": {
+            "title": "Percentage of population (%)",
+            "titleFontSize": 12,
+            "titleAlign":"center",
+            "labelFontSize": 12
+          }
+        },
+        "tooltip": [
+          {"field": "State", "type": "nominal"},
+          {"field": "Participation rate", "type": "quantitative", "title": "Percentage of population"}
+        ]
+      }
+    }
+  ]
+}

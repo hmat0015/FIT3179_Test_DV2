@@ -1,0 +1,100 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 600,
+    "height": 500,
+    "title": {
+      "text": "Participation Rates in Physical Activities by Age Group",
+      "fontSize": 24
+    },
+    "data": {
+      "url": "https://raw.githubusercontent.com/hmat0015/FIT3179_DataVis2/refs/heads/main/Australia_Participation_Demographic.csv"
+    },
+    "layer": [
+      {
+        "params": [
+            {
+            "name": "agegroup_filter",
+            "select": {"type": "point", "fields": ["Age Group"]},
+            "bind": "legend"
+            }
+        ],
+            "mark": {
+          "type": "bar",
+          "stroke": "black",
+          "strokeWidth": 0.05
+        },
+        "encoding": {
+            "x": {
+                "field": "State",
+                "type": "nominal",
+                "axis": {
+                  "labelAngle": 270,
+                  "titleFontSize": 15,
+                  "labelFontSize": 13
+                }
+            },
+            "y": {
+                "field": "Participation rate",
+                "type": "quantitative",
+                "title": "Participation rate (%)",
+                "scale": {
+                  "domain": [0, 100]
+                },
+                "axis": {
+                  "titleFontSize": 15,
+                  "labelFontSize": 13
+                }
+            },
+            "color": {
+                "field": "Age Group",
+                "type": "nominal",
+                "title": "Age Group",
+                "scale": {
+                "range": ["#ffffcc", "#c7e9b4", "#7fcdbb", "#41b6c4", "#1d91c0", "#225ea8", "#0c2c84"]
+                },
+                "legend": {
+                  "titleFontSize": 12,
+                  "labelFontSize": 12
+                }
+            },
+            "opacity": {
+                "condition": {"param": "agegroup_filter", "value": 1},
+                "value": 0.2
+            },
+            "tooltip": [
+                { "field": "Age Group", "title": "Age Group" },
+                { "field": "Participation rate", "title": "Participation Rate (%)" }
+            ]
+            }
+      },
+      {
+        "mark": {
+          "type": "text",
+          "align": "center",
+          "dy": -5
+        },
+        "encoding": {
+          "x": {
+            "field": "State",
+            "type": "nominal"
+          },
+          "y": {
+            "aggregate": "sum",
+            "field": "Participation rate",
+            "type": "quantitative"
+          },
+          "text": {
+            "aggregate": "max",
+            "field": "Participation rate",
+            "type": "quantitative"
+          },
+          "color": {
+            "value": "black"
+          },
+          "tooltip": {
+            "value": "Largest participation rate from an age group"
+          }
+        }
+      }
+    ]
+  }
